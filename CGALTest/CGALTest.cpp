@@ -7,6 +7,8 @@ using namespace std;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	Mesh m;
+	CGAL::make_icosahedron<Mesh, Point>(m);
+	CGAL::draw(m);
 	return 0;
 }
