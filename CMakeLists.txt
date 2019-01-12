@@ -3,7 +3,6 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("CGALTest")
-find_package(CGAL REQUIRED COMPONENTS Qt5 Core)
 # Include sub-projects.
 add_subdirectory ("CGALTest")
+add_subdirectory ("Remeshing")

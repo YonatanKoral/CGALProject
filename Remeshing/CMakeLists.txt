@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 3.8)
 get_filename_component(PATH_NAME "./" ABSOLUTE)
 get_filename_component(PROJECT_NAME "${PATH_NAME}" NAME)
 message("Project found: ${PROJECT_NAME}")
-project (${PROJECT_NAME})
+project(${PROJECT_NAME})
 
 find_package(CGAL REQUIRED COMPONENTS Qt5 Core)
 # TODO: Add tests and install targets if needed.
@@ -18,7 +18,7 @@ if(CGAL_FOUND AND CGAL_Qt5_FOUND)
 	# Add source to this project's executable.
 	FILE(GLOB SRC_FILES ./*.cpp)
 	FILE(GLOB H_FILES ./*.h)
-	add_executable (${PROJECT_NAME} ${SRC_FILES} ${H_FILES})
+	add_executable (${PROJECT_NAME}  ${SRC_FILES} ${H_FILES})
   #link it with the required CGAL libraries
   target_link_libraries(${PROJECT_NAME} CGAL::CGAL CGAL::CGAL_Qt5 CGAL::CGAL_Core)
 else()

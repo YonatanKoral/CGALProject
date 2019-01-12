@@ -1,7 +1,7 @@
 ﻿// CGALTest.cpp : Defines the entry point for the application.
 //
 
-#include "CGALTest.h"
+#include "Remesh.h"
 
 
 int main()
