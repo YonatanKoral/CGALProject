@@ -11,26 +11,25 @@ message("Project found: ${SUB_PROJECT_NAME}")
 find_package(CGAL REQUIRED COMPONENTS Qt5 Core)
 # TODO: Add tests and install targets if needed.
 
+
 INCLUDE(MacroUtils)
+STATIC_OR_DYNAMIC_LINKING()
+message("CGAL found? ${CGAL_FOUND}, cgal qt5 found? ${CGAL_Qt5_FOUND}")
 if(CGAL_FOUND AND CGAL_Qt5_FOUND)
   #required to use basic_viewer
-  #set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${REPOSITORY_BUILD_PATH}/lib)
-	#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${REPOSITORY_BUILD_PATH}/lib)
-	#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${REPOSITORY_BUILD_PATH}/bin)
-set(CMAKE_BINARY_DIR "${REPOSITORY_PATH}/build/bin")
+   include_directories(
+	${${SUB_PROJECT_NAME}_INCLUDE_DIR})
   add_definitions(-DCGAL_USE_BASIC_VIEWER -DQT_NO_KEYWORDS)
   #create the executable of the application
 	# Add source to this project's executable.
-	#include_directories(${${SUB_PROJECT_NAME}_INCLUDE_DIR})
-	include_directories(./include)
 	FILE(GLOB SRC_FILES ./src/*.cpp)
 	FILE(GLOB H_FILES ./include/*.h)
-	add_executable (${SUB_PROJECT_NAME} ${SRC_FILES} ${H_FILES})
-  SETOUTPUTS(${SUB_PROJECT_NAME} ${REPOSITORY_BUILD_PATH})
+	add_library(${SUB_PROJECT_NAME} ${LINKING_USER_DEFINED_DYNAMIC_OR_STATIC}  ${SRC_FILES} ${H_FILES})
   #link it with the required CGAL libraries
   target_link_libraries(${SUB_PROJECT_NAME} CGAL::CGAL CGAL::CGAL_Qt5 CGAL::CGAL_Core)
-  
-  INSTALL(TARGETS ${SUB_PROJECT_NAME} RUNTIME DESTINATION bin )
+  SETOUTPUTS(${SUB_PROJECT_NAME} ${REPOSITORY_BUILD_PATH})
+  #target_include_directories(${SUB_PROJECT_NAME} PUBLIC ${${SUB_PROJECT_NAME}_INCLUDE_DIR})
+  message("${SUB_PROJECT_NAME} Include directory: ${${SUB_PROJECT_NAME}_INCLUDE_DIR}")
 else()
   message("ERROR: this program requires CGAL and CGAL_Qt5 and will not be compiled for ${SUB_PROJECT_NAME}.")
 endif()
